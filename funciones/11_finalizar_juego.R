@@ -8,11 +8,7 @@ finalizar_juego <- function(estado) {
   
   valor_acciones <- 0
   if (nrow(estado$cartera) > 0) {
-    cartera_valorizada <- merge(
-      estado$cartera,
-      estado$datos_empresas[, c("ID", "PrecioActual")],
-      by = "ID"
-    )
+    cartera_valorizada <- cartera_con_valor_actual(estado)
     cartera_valorizada$ValorActual <- cartera_valorizada$Cantidad * cartera_valorizada$PrecioActual
     valor_acciones <- sum(cartera_valorizada$ValorActual)
     

@@ -10,12 +10,7 @@ mostrar_estado_actual <- function(estado) {
   if (nrow(estado$cartera) == 0) {
     cat("No tienes acciones en tu cartera.\n")
   } else {
-    cartera_extendida <- merge(
-      estado$cartera,
-      estado$datos_empresas[, c("ID", "PrecioActual")],
-      by = "ID"
-    )
-    cartera_extendida <- cartera_extendida[, c("ID", "Empresa", "Cantidad", "PrecioCompra", "PrecioActual")]
+    cartera_extendida <- cartera_con_valor_actual(estado)
     print(cartera_extendida, row.names = FALSE)
   }
 

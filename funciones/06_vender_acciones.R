@@ -9,12 +9,7 @@ vender_acciones <- function(estado) {
     return(estado)
   }
   
-  cartera_extendida <- merge(
-    estado$cartera,
-    estado$datos_empresas[, c("ID", "PrecioActual")],
-    by = "ID"
-  )
-  cartera_extendida <- cartera_extendida[, c("ID", "Empresa", "Cantidad", "PrecioCompra", "PrecioActual")]
+  cartera_extendida <- cartera_con_valor_actual(estado)
   print(cartera_extendida, row.names = FALSE)
   
   id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas vender: ", estado$cartera$ID)

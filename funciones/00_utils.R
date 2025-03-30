@@ -1,3 +1,6 @@
+# ===== entrada_id_valida() =====
+# Verificar que se está ingresando una opción válida
+
 entrada_id_valida <- function(prompt_text, ids_validos) {
   repeat {
     entrada <- readline(prompt = prompt_text)
@@ -13,4 +16,17 @@ entrada_id_valida <- function(prompt_text, ids_validos) {
       }
     }
   }
+}
+
+# ===== cartera_con_valor_actual() =====
+# Devuelve la cartera con columna PrecioActual unida desde datos_empresas
+
+cartera_con_valor_actual <- function(estado) {
+  cartera_extendida <- merge(
+    estado$cartera,
+    estado$datos_empresas[, c("ID", "PrecioActual")],
+    by = "ID"
+  )
+  cartera_extendida <- cartera_extendida[, c("ID", "Empresa", "Cantidad", "PrecioCompra", "PrecioActual")]
+  return(cartera_extendida)
 }
