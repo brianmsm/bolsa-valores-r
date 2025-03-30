@@ -10,8 +10,7 @@ mostrar_menu <- function() {
   cat("1️⃣  Comprar acciones\n")
   cat("2️⃣  Vender acciones\n")
   cat("3️⃣  Mantener inversión\n")
-  cat("4️⃣  Ver últimas noticias 📢\n")
-  cat("5️⃣  Mostrar estado actual 💰\n")
-  cat("6️⃣  Finalizar juego ❌\n")
+  cat("4️⃣  Mostrar estado actual 💰\n")
+  cat("5️⃣  Finalizar juego ❌\n")
   cat("======================================\n")
 }
