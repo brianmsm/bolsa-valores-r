@@ -2,9 +2,17 @@
 # Lee las bases de datos necesarias para el simulador
 
 cargar_datos <- function(path_noticias = "noticias_bolsa.csv") {
-  
+  url_respaldo <- "https://raw.githubusercontent.com/brianmsm/bolsa-valores-r/main/noticias_bolsa.csv"
+
   if (!file.exists(path_noticias)) {
-    stop("No se encontró el archivo de noticias: ", path_noticias)
+    warning("⚠️  Archivo de noticias no encontrado localmente. Intentando descargar desde internet...")
+
+    tryCatch({
+      download.file(url_respaldo, destfile = path_noticias, quiet = TRUE)
+      cat("✅ Archivo de noticias descargado correctamente.\n")
+    }, error = function(e) {
+      stop("❌ No se pudo descargar el archivo de noticias desde GitHub. Verifica tu conexión.")
+    })
   }
   
   # Dado que solo se puede cargar un archivo, los datos de empresa 
