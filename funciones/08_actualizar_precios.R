@@ -25,5 +25,23 @@ actualizar_precios <- function(estado, noticia) {
     cat(emoji, estado$datos_empresas$Nombre[i], ": de", precio_anterior, "→", nuevo_precio, "\n")
   }
   
+  # Aplicar cambio aleatorio leve a otras empresas
+  otros_idx <- setdiff(seq_len(nrow(estado$datos_empresas)), idx_empresas)
+  
+  if (length(otros_idx) > 0) {
+    cat("\n🌐 Variaciones generales del mercado:\n")
+    for (i in otros_idx) {
+      ruido <- runif(1, -0.02, 0.02)  # ±2%
+      precio_anterior <- estado$datos_empresas$PrecioActual[i]
+      nuevo_precio <- round(precio_anterior * (1 + ruido), 2)
+      nuevo_precio <- max(nuevo_precio, 1)
+      
+      estado$datos_empresas$PrecioActual[i] <- nuevo_precio
+      
+      emoji <- if (nuevo_precio > precio_anterior) "↗️" else if (nuevo_precio < precio_anterior) "↘️" else "➖"
+      cat(emoji, estado$datos_empresas$Nombre[i], ": de", precio_anterior, "→", nuevo_precio, "\n")
+    }
+  }
+
   return(estado)
 }
