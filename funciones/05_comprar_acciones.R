@@ -5,7 +5,7 @@ comprar_acciones <- function(estado) {
   cat("\n=== 📈 COMPRA DE ACCIONES ===\n")
   
   # Mostrar empresas disponibles
-  print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "AccionesDisponibles")])
+  print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "PrecioActual", "AccionesDisponibles")])
   
   id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas comprar: ", estado$datos_empresas$ID)
   
@@ -28,7 +28,7 @@ comprar_acciones <- function(estado) {
     return(estado)
   }
   
-  costo_total <- cantidad * empresa$PrecioInicial
+  costo_total <- cantidad * empresa$PrecioActual 
   
   if (costo_total > estado$capital) {
     cat("❌ No tienes suficiente capital para esta compra.\n")
@@ -44,7 +44,7 @@ comprar_acciones <- function(estado) {
     idx <- which(estado$cartera$ID == empresa$ID)  
     estado$cartera$Cantidad[idx] <- estado$cartera$Cantidad[idx] + cantidad
     estado$cartera$PrecioCompra[idx] <- 
-      (estado$cartera$PrecioCompra[idx] + empresa$PrecioInicial) / 2  # Promedio simple
+      (estado$cartera$PrecioCompra[idx] + empresa$PrecioActual) / 2 
   } else {
     estado$cartera <- rbind(
       estado$cartera,
@@ -52,7 +52,7 @@ comprar_acciones <- function(estado) {
         ID = empresa$ID,
         Empresa = empresa$Nombre,
         Cantidad = cantidad,
-        PrecioCompra = empresa$PrecioInicial,
+        PrecioCompra = empresa$PrecioActual, 
         stringsAsFactors = FALSE
       )
     )
