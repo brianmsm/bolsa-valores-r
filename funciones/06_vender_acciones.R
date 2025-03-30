@@ -11,7 +11,7 @@ vender_acciones <- function(estado) {
   
   print(estado$cartera)
   
-  id <- as.integer(readline(prompt = "🔢 Ingresa el ID de la empresa que deseas vender: "))
+  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas vender: ", estado$cartera$ID)
   
   if (!(id %in% estado$cartera$ID)) {
     cat("❌ No tienes acciones de esa empresa.\n")

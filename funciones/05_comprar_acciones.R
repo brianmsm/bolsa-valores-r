@@ -7,7 +7,7 @@ comprar_acciones <- function(estado) {
   # Mostrar empresas disponibles
   print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "AccionesDisponibles")])
   
-  id <- as.integer(readline(prompt = "🔢 Ingresa el ID de la empresa que deseas comprar: "))
+  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas comprar: ", estado$datos_empresas$ID)
   
   empresa <- estado$datos_empresas[estado$datos_empresas$ID == id, ]
   
