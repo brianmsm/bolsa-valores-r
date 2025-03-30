@@ -48,11 +48,19 @@ jugar_bolsa <- function() {
       break
     } else if (identical(accion, mostrar_estado_actual)) {
       accion(estado)
-      next  # no avanza el día
+      next
     } else {
       estado <- accion(estado)
+      
+      # Ahora sí, mostrar impacto del mercado tras la acción
+      if (!is.null(attr(estado, "noticia_actual"))) {
+        noticia <- attr(estado, "noticia_actual")
+        estado <- actualizar_precios(estado, noticia)
+        attr(estado, "noticia_actual") <- NULL  # limpiar
+      }
+      
       estado$dia <- estado$dia + 1
-    }    
+    }
     
     # Fin automático al día 20
     if (estado$dia > 20) {
