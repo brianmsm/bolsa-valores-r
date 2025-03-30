@@ -4,6 +4,9 @@
 inicializar_juego <- function(capital_inicial = 2000, verbose = TRUE) {
   datos <- cargar_datos()
   
+  # Añadir columna de PrecioActual
+  datos$empresas$PrecioActual <- datos$empresas$PrecioInicial
+  
   estado <- list(
     dia = 1,
     capital = capital_inicial,

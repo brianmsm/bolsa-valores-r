@@ -10,9 +10,15 @@ mostrar_estado_actual <- function(estado) {
   if (nrow(estado$cartera) == 0) {
     cat("No tienes acciones en tu cartera.\n")
   } else {
-    print(estado$cartera[, c("ID", "Empresa", "Cantidad", "PrecioCompra")], row.names = FALSE)
+    cartera_extendida <- merge(
+      estado$cartera,
+      estado$datos_empresas[, c("ID", "PrecioActual")],
+      by = "ID"
+    )
+    cartera_extendida <- cartera_extendida[, c("ID", "Empresa", "Cantidad", "PrecioCompra", "PrecioActual")]
+    print(cartera_extendida, row.names = FALSE)
   }
 
   cat("\n🏢 Empresas en el mercado:\n")
-  print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "AccionesDisponibles")], row.names = FALSE)
+  print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "PrecioActual", "AccionesDisponibles")], row.names = FALSE)
 }
