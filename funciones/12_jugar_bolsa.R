@@ -3,6 +3,18 @@
 
 jugar_bolsa <- function() {
   estado <- inicializar_juego()
+
+  cat("🎮 Bienvenido al Simulador de Bolsa\n")
+  cat("💰 Capital inicial:", estado$capital, "euros\n")
+  cat("📈 Turnos: 20 días\n")
+  cat("📦 Acciones disponibles:", nrow(estado$datos_empresas), "empresas\n\n")
+  
+  cat("📌 Instrucciones:\n")
+  cat("- Cada día recibirás una noticia económica.\n")
+  cat("- Basándote en ella, deberás decidir si comprar, vender o mantener tus inversiones.\n")
+  cat("- Pero ¡cuidado! Los efectos reales de la noticia se verán **después** de que tomes tu decisión.\n")
+  cat("- Tu objetivo es terminar con un patrimonio mayor a tu capital inicial.\n\n")
+  cat("¡Buena suerte, inversionista! 💼📊\n")
   
   repeat {
     cat("\n=====================================\n")
