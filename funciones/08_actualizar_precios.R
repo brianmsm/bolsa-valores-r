@@ -12,12 +12,18 @@ actualizar_precios <- function(estado, noticia) {
     return(estado)
   }
   
+  cat("\n📊 Cambios en el mercado:\n")
   for (i in idx_empresas) {
-    precio_original <- estado$datos_empresas$PrecioInicial[i]
-    nuevo_precio <- round(precio_original * (1 + impacto), 2)
-    estado$datos_empresas$PrecioInicial[i] <- max(nuevo_precio, 1)  # Precio mínimo: 1 euro
+    precio_anterior <- estado$datos_empresas$PrecioActual[i]
+    nuevo_precio <- round(precio_anterior * (1 + impacto), 2)
+    nuevo_precio <- max(nuevo_precio, 1)
+    
+    estado$datos_empresas$PrecioActual[i] <- nuevo_precio
+    
+    cambio <- nuevo_precio - precio_anterior
+    emoji <- if (cambio > 0) "📈" else if (cambio < 0) "📉" else "➖"
+    cat(emoji, estado$datos_empresas$Nombre[i], ": de", precio_anterior, "→", nuevo_precio, "\n")
   }
   
-  cat("📊 Precios actualizados en el sector", area_afectada, "\n")
   return(estado)
 }
