@@ -8,6 +8,7 @@ inicializar_juego <- function(capital_inicial = 2000, verbose = TRUE) {
     dia = 1,
     capital = capital_inicial,
     cartera = data.frame(
+      ID = integer(),
       Empresa = character(),
       Cantidad = integer(),
       PrecioCompra = numeric(),

@@ -40,8 +40,8 @@ comprar_acciones <- function(estado) {
   estado$datos_empresas$AccionesDisponibles[estado$datos_empresas$ID == id] <- 
     estado$datos_empresas$AccionesDisponibles[estado$datos_empresas$ID == id] - cantidad
   
-  if (empresa$Nombre %in% estado$cartera$Empresa) {
-    idx <- which(estado$cartera$Empresa == empresa$Nombre)
+  if (empresa$ID %in% estado$cartera$ID) {
+    idx <- which(estado$cartera$ID == empresa$ID)  
     estado$cartera$Cantidad[idx] <- estado$cartera$Cantidad[idx] + cantidad
     estado$cartera$PrecioCompra[idx] <- 
       (estado$cartera$PrecioCompra[idx] + empresa$PrecioInicial) / 2  # Promedio simple
@@ -49,6 +49,7 @@ comprar_acciones <- function(estado) {
     estado$cartera <- rbind(
       estado$cartera,
       data.frame(
+        ID = empresa$ID,
         Empresa = empresa$Nombre,
         Cantidad = cantidad,
         PrecioCompra = empresa$PrecioInicial,
