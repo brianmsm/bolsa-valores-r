@@ -2,8 +2,8 @@
 # Permite al jugador vender acciones que posee
 
 vender_acciones <- function(estado) {
+  cat("💵 Capital disponible:", estado$capital, "euros\n\n")
   cat("\n=== 💸 VENTA DE ACCIONES ===\n")
-  cat("💵 Capital disponible:", estado$capital, "euros\n")
 
   if (nrow(estado$cartera) == 0) {
     cat("⚠️  No tienes acciones para vender.\n")
@@ -13,10 +13,9 @@ vender_acciones <- function(estado) {
   cartera_extendida <- cartera_con_valor_actual(estado)
   print(cartera_extendida, row.names = FALSE)
   
-  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas vender: ", estado$cartera$ID)
-  
-  if (!(id %in% estado$cartera$ID)) {
-    cat("❌ No tienes acciones de esa empresa.\n")
+  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas vender (0 para cancelar): ", estado$cartera$ID)
+
+  if (id == 0) {
     return(estado)
   }
   

@@ -19,6 +19,7 @@ jugar_bolsa <- function() {
   repeat {
     cat("\n=====================================\n")
     cat("📆 Día", estado$dia, "de 20\n")
+    cat("💵 Capital disponible:", estado$capital, "euros\n")
 
     # Día 1: sin noticia, sin impacto
     if (estado$dia > 1) {
@@ -26,7 +27,6 @@ jugar_bolsa <- function() {
       if (!is.null(d)) {
         estado <- d$estado
         attr(estado, "noticia_actual") <- d$noticia  # guardamos para aplicar impacto luego
-        cat("\n")  # espacio antes del menú
       }
     }
     

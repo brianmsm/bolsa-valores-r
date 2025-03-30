@@ -2,20 +2,19 @@
 # Permite al jugador comprar acciones si tiene fondos
 
 comprar_acciones <- function(estado) {
+  cat("💵 Capital disponible:", estado$capital, "euros\n\n")
   cat("\n=== 📈 COMPRA DE ACCIONES ===\n")
-  cat("💵 Capital disponible:", estado$capital, "euros\n")
   
   # Mostrar empresas disponibles
   print(estado$datos_empresas[, c("ID", "Nombre", "Sector", "PrecioInicial", "PrecioActual", "AccionesDisponibles")])
   
-  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas comprar: ", estado$datos_empresas$ID)
-  
-  empresa <- estado$datos_empresas[estado$datos_empresas$ID == id, ]
-  
-  if (nrow(empresa) == 0) {
-    cat("❌ Empresa no encontrada.\n")
+  id <- entrada_id_valida("🔢 Ingresa el ID de la empresa que deseas comprar (0 para cancelar): ", estado$datos_empresas$ID)
+
+  if (id == 0) {
     return(estado)
   }
+
+  empresa <- estado$datos_empresas[estado$datos_empresas$ID == id, ]
   
   repeat {
     cantidad <- as.integer(readline(prompt = paste("📦 ¿Cuántas acciones deseas comprar de", empresa$Nombre, "? (0 para cancelar): ")))

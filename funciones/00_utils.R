@@ -1,20 +1,24 @@
 # ===== entrada_id_valida() =====
 # Verificar que se está ingresando una opción válida
 
-entrada_id_valida <- function(prompt_text, ids_validos) {
+entrada_id_valida <- function(prompt, ids_validos) {
   repeat {
-    entrada <- readline(prompt = prompt_text)
+    entrada <- readline(prompt)
     
-    if (!grepl("^[0-9]+$", entrada)) {
-      cat("❌ Entrada inválida. Debes ingresar un número.\n")
-    } else {
+    if (entrada == "0") {
+      cat("🔙 Operación cancelada. Volviendo al menú.\n")
+      return(0)
+    }
+    
+    if (grepl("^[0-9]+$", entrada)) {
       id <- as.integer(entrada)
       if (id %in% ids_validos) {
         return(id)
-      } else {
-        cat("❌ ID no válido. Elige uno de los siguientes:", paste(ids_validos, collapse = ", "), "\n")
       }
     }
+    
+    cat("❌ ID no válido. Elige uno de los siguientes:", paste(ids_validos, collapse = ", "), "\n")
+    cat("💡 Ingresa 0 para cancelar y volver al menú.\n")
   }
 }
 
