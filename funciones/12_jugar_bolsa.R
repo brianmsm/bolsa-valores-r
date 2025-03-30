@@ -20,11 +20,14 @@ jugar_bolsa <- function() {
     cat("\n=====================================\n")
     cat("📆 Día", estado$dia, "de 20\n")
 
-    # Generar noticia al inicio del día
-    d <- generar_noticia(estado)
-    if (!is.null(d)) {
-      estado <- d$estado
-      estado <- actualizar_precios(estado, d$noticia)
+    # Día 1: sin noticia, sin impacto
+    if (estado$dia > 1) {
+      d <- generar_noticia(estado)
+      if (!is.null(d)) {
+        estado <- d$estado
+        attr(estado, "noticia_actual") <- d$noticia  # guardamos para aplicar impacto luego
+        cat("\n")  # espacio antes del menú
+      }
     }
     
     mostrar_menu()
