@@ -62,8 +62,8 @@ cargar_datos <- function(path_noticias = "noticias_bolsa.csv") {
   url_respaldo <- "https://raw.githubusercontent.com/brianmsm/bolsa-valores-r/main/noticias_bolsa.csv"
 
   if (!file.exists(path_noticias)) {
-    warning("⚠️  Archivo de noticias no encontrado localmente. Intentando descargar desde internet...")
-
+    cat("⚠️  Archivo de noticias no encontrado localmente. Intentando descargar desde internet...\n")
+    
     tryCatch({
       download.file(url_respaldo, destfile = path_noticias, quiet = TRUE)
       cat("✅ Archivo de noticias descargado correctamente.\n")
